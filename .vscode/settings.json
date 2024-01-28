@@ -1,0 +1,33 @@
+{
+    //* Display settings
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.iconTheme": "catppuccin-mocha",
+    "workbench.startupEditor": "none",
+    "window.zoomLevel": 1,
+    "editor.rulers": [100],
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 100, // Replace 80 with your desired column number
+  
+    //* Editor settings
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "xaver.clang-format",
+    "diffEditor.ignoreTrimWhitespace": false,
+    
+    //* Clangd extensions settings
+    "clangd.path": "/home/ian/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/16.0.2/clangd_16.0.2/bin/clangd",
+    "clangd.detectExtensionConflicts": false,
+  
+    //* Cmake extension settings
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.showOptionsMovedNotification": false,
+  
+    //* Indent rainbow extensions settings
+    "indentRainbow.indicatorStyle": "light",
+    "indentRainbow.lightIndicatorStyleLineWidth": 1,
+    "indentRainbow.colors": [
+      "rgba(255,255,64,0.3)",
+      "rgba(127,255,127,0.3)",
+      "rgba(255,127,255,0.3)",
+      "rgba(79,236,236,0.3)"
+    }
