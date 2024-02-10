@@ -1,1 +1,1 @@
-# cs6250_lecture_notes
+# Computer Networks Notes
