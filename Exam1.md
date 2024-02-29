@@ -486,12 +486,47 @@
     </details><br>
 
 - What is the Routing Information Protocol (RIP)?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            A distance vector routing algorithm where routing information is exchanged among routers 
+            to determine the best path to each destination, using hop count as its metric. RIP 
+            operates through periodic updates and has versions including RIPv1 and RIPv2, with the 
+            latter offering enhancements such as sub-netting and authentication support.
+    </details><br>
 
 - What is the Open Shortest Path First (OSPF) protocol?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            A link-state routing protocol which calculates the shortest path to each destination 
+            based on a map of the entire network topology. OSPF routers exchange link-state 
+            advertisements (LSAs) to build and maintain a database of the network topology. OSPF 
+            uses Dijkstra's algorithm to calculate the shortest paths and assigns costs to links 
+            based on metrics like bandwidth or delay. It is widely used in larger networks due to 
+            its scalability and support for hierarchical design.
+    </details><br>
 
 - How does a router process advertisements?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            When a router receives link-state update packets containing LSAs from a neighboring 
+            router, it processes them by first storing the LSAs in its link-state database to form a 
+            consistent view of the network topology. Then, using this information, the router 
+            calculates the shortest path using the shortest path first (SPF) algorithm. The 
+            resulting shortest path is stored in the Forwarding Information Base (FIB), which is 
+            used to determine the next hop for incoming data packets and forward them to the 
+            appropriate outgoing interface card.
+    </details><br>
 
 - What is hot potato routing?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            A technique of choosing a path within the network, by choosing the closest egress point 
+            based on intra-domain path cost (Interior Gateway Protocol/IGP cost).
+    </details><br>
 
 ## Lesson 4: AS Relationships and Inter-domain Routing
 
