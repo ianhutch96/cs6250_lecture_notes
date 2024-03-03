@@ -531,105 +531,466 @@
 ## Lesson 4: AS Relationships and Inter-domain Routing
 
 - Describe the relationships between ISPs, IXPs, and CDNs.
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            ISPs connect users to the internet, IXPs facilitate the exchange of traffic between ISPs 
+            and networks, and CDNs enhance content delivery by strategically distributing it across 
+            networks.
+    </details><br>
 
 - What is an AS?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            A network or group of networks that operate under a single administrative domain, 
+            typically managed by a single entity such as an internet service provider (ISP) or a 
+            large organization.
+    </details><br>
 
 - What kind of relationship does AS have with other parties?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Provider-Customer: The provider forwards the customer's traffic to destinations found in 
+            the provider's routing table (including the opposite direction of the traffic).
+            Peering: Two ASes share a subset of routing tables, typically limited to their 
+            respective customers. This agreement remains viable unless traffic exchange becomes 
+            highly asymmetric.
+    </details><br>
 
 - What is BGP?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Stands for Border Gateway Protocol; It's a standardized exterior gateway protocol 
+            designed to exchange routing and reachability information among autonomous systems (AS) 
+            on the internet.
+    </details><br>
 
 - How does an AS determine what rules to import/export?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            An AS determines what rules to import/export through the configuration of its Border 
+            Gateway Protocol (BGP) policies.
+    </details><br>
 
 - What were the original design goals of BGP? What was considered later?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Scalability, Security, Cooperation, express routing policies.
+    </details><br>
 
 - What are the basics of BGP?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            A pair of routers, known as BGP peers, exchange routing information over a semi-
+            permanent TCP port connection called a BGP session. To begin a BGP session, a router 
+            will send an OPEN message to another router. Then the sending and receiving routers will 
+            send each other announcements from their routing tables. After BGP peers establish a 
+            session, they can exchange BGP messages to provide reachability information and enforce 
+            routing policies. We have two types of BGP messages: UPDATE messages convey route 
+            changes, KEEPALIVE messages maintain session connectivity between peers.
+    </details><br>
 
 - What is the difference between iBGP and eBGP?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            A BGP session between a pair of routers in two different ASes is called an external BGP 
+            (eBGP) session, and a BGP session between routers that belong to the same AS is called 
+            an internal BGP (iBGP) session.
+    </details><br>
 
 - What is the difference between iBGP and IGP-like protocols (RIP or OSPF)?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            IGP-like protocols are used to establish paths between the internal routers of an AS 
+            based on specific costs within the AS. In contrast, iBGP is only used to disseminate 
+            external routes within the AS.
+    </details><br>
 
 - How does a router use the BGP decision process to choose which routes to import?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            When a router receives advertisements, it first applies the import policies to exclude 
+            routes from further consideration. Then the router implements the decision process to 
+            select the best routes that reflect the policy in place. Next, the newly selected routes 
+            are installed in the forwarding table.
+    </details><br>
 
 - What are the 2 main challenges with BGP? Why?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Scalability: The growth in the number of internet routes, the size of routing tables, 
+            and the number of BGP peers strain the computational resources and memory capacity of 
+            routers.
+            Misconfigurations
+    </details><br>
 
 - What is an IXP?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            IXPs are physical infrastructures that provide the means for ASes to interconnect and 
+            directly exchange traffic with one another
+    </details><br>
 
 - What are four reasons for IXP's increased popularity?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            1. They serve as interconnection hubs handling massive traffic volumes
+            2. IXPs play a vital role in mitigating DDoS attacks
+            3. They offer real-world infrastructures for research
+            4. IXPs are active marketplaces and technology innovation hubs
+    </details><br>
 
 - Which services do IXPs provide?
+    <details>
+        <summary>Click to reveal the answer</summary>
+            1. Public peering
+            2. Private peering
+            3. Route servers and SLAs
+            4. Remote peering through sellers
+            5. Mobile peering
+            6. DDoS protection
+    </details><br>
 
 - How does a route server work?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            It collects and shares routing information from its peers or participants of the IXP 
+            that connect to the RS. It executes its own BGP decision process and re-advertises the 
+            resulting information (e.g., best route selection) to all RS's peer routers. A typical 
+            routing daemon maintains a Routing Information Base (RIB), which contains all BGP paths 
+            that it receives from its peers - the Master RIB. In addition, the route server also 
+            maintains AS-specific RIBs to keep track of the individual BGP sessions they maintain 
+            with each participant AS.
+    </details><br>
 
 ## Lesson 5: Router Design and Algorithms (Part 1)
 
 - What are the basic components of a router?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Forwarding / switching function (Data plane)
+            Switching fabricR
+            Routing Table
+            I/O ports
+            Control plane functions (CPU / Remote controller)
+    </details><br>
 
 - Explain the forwarding (or switching) function of a router.
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Moves the packets from input to output ports and makes the connections between the input and the output ports.
+    </details><br>
 
 - The switching fabric moves the packets from input to output ports. What are the functionalities performed by the input and output ports?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Input: Physically terminate the incoming links to the router, Decapsulate the packets in 
+            the data link processing unit, and most importantly, perform the lookup function. The 
+            input ports consult the forwarding table to ensure that each packet is forwarded to the 
+            appropriate output port through the switch fabric.
+            Output: Receive and queue packets from the switching fabric and then send them to the 
+            outgoing link.
+    </details><br>
 
 - What is the purpose of the router’s control plane
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Implementing the routing protocols, maintaining the routing tables, and computing the 
+            forwarding table. All these functions are implemented in software in the routing processor.
+    </details><br>
 
 - What tasks occur in a router
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Time sensitive: Lookup, switching, scheduling
+            Less time sensitive: HW validation & checksum, route processing, protocol processing
+    </details><br>
 
 - List and briefly describe each type of switching. Which, if any, can send multiple packets across the fabric in parallel
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            1. Switching via memory: Incoming packets are stored temporarily in the router's memory 
+               before being forwarded. Each packet is individually processed and forwarded.
+            3. Switching via bus: A shared bus to interconnect the router's input and output ports.
+               Packets are forwarded one at a time through the bus.
+            5. Switching via interconnection network (crossbar). Packets can be forwarded across the 
+               fabric in parallel.
+    </details><br>
 
 - What are two fundamental problems involving routers, and what causes these problems
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            - Bandwidth and Internet population scaling, caused by: increasing number of devices/traffic
+            - Services at high speeds
+    </details><br>
 
 - What are the bottlenecks that routers face, and why do they occur
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Limited compute resources: Implementing complex protocols / 
+            Speed of interfaces: high volume of traffic
+            Routing table size: Increases lookup time
+    </details><br>
 
 - Convert between different prefix notations (dot-decimal, slash, and masking)
+  - SEE NOTES
 
 - What is CIDR, and why was it introduced
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            CIDR stands for Classless Inter-Domain Routing. It was introduced to address the inefficient allocation of IP addresses under the older addressing scheme.
+    </details><br>
 
 - Name 4 takeaway observations around network traffic characteristics. Explain their consequences
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            1. Caching solutions will not work efficiently
+            2. Lookup speed in memory is very important.
+            3. Need a stable routing protocol.
+            4. A vital trade-off is memory usage. Fast+Expensive or Slow+Cheap
+    </details><br>
 
 - Why do we need multibit tries
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            To reduce the number of memory accesses required to perform a lookup.
+    </details><br>
 
 - What is prefix expansion, and why is it needed
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            The process of increasing the size of a routing prefix in CIDR notation to encompass a 
+            larger range of IP addresses. It's needed to efficiently allocate IP addresses and 
+            accommodate network growth while minimizing the number of routing table entries.
+    </details><br>
 
 - Perform a prefix lookup given a list of pointers for unibit tries, fixed-length multibit ties, and variable-length multibit tries
+  - SEE NOTES
 
 - Perform a prefix expansion. How many prefix lengths do old prefixes have? What about new prefixes
+  - SEE NOTES
 
 - What are the benefits of variable-stride versus fixed-stride multibit tries?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Variable-stride offers more efficient memory utilization and faster lookup times 
+            compared to fixed-stride. This is because variable-stride adjusts the length of each 
+            stride dynamically based on the distribution of prefixes in the routing table. 
+    </details><br>
 
 ## Lesson 6: Router Design and Algorithms (Part 2)
 
 - Why is packet classification needed?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Networks require quality-of-service and security guarantees for their traffic. Packet 
+            forwarding based on the longest prefix matching of destination IP addresses is 
+            insufficient. We need to handle packets based on multiple criteria such as TCP flags, 
+            source addresses, and so on.
+    </details><br>
 
 - What are three established variants of packet classification?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+          1. Firewalls
+          2. Resource reservation protocols
+          3. Routing based on traffic type
+    </details><br>
 
 - What are the simple solutions to the packet classification problem?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Linear search, caching, and passing labels.
+    </details><br>
 
 - How does fast searching using set-pruning tries work?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Fast searching using set-pruning tries involves efficiently searching for prefixes in a 
+            routing table by eliminating unnecessary comparisons through set-based pruning. This 
+            method organizes prefixes into sets based on common prefixes and utilizes a trie 
+            structure to represent these sets. During a search, the trie is traversed, and sets of 
+            prefixes are pruned based on their matching prefixes, reducing the number of comparisons 
+            required. This pruning technique accelerates the search process, leading to faster 
+            lookup times and improved routing performance.
+    </details><br>
 
 - What’s the main problem with the set pruning tries?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            The main problem with set pruning tries is the potential increase in memory consumption. 
+            While set pruning tries can improve search efficiency by reducing the number of 
+            comparisons needed during lookup, they may require additional memory to store the 
+            set-based pruning information.
+    </details><br>
 
 - What is the difference between the pruning approach and the backtracking approach for packet classification with a trie?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            The pruning approach optimizes trie traversal by eliminating irrelevant subsets of rules 
+            early in the process, while the backtracking approach explores all possible paths in the 
+            trie without pruning, potentially requiring more computational resources but ensuring 
+            completeness in classification.
+    </details><br>
 
 - What’s the benefit of a grid of tries approach?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            We can reduce the wasted time in the backtracking search by using pre-computation. When 
+            there is a failure point in a source trie, we pre-compute a switch pointer. Switch 
+            pointers take us directly to the next possible source trie containing a matching rule.
+    </details><br>
 
 - Describe the “Take the Ticket” algorithm.
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Each output line maintains a distributed queue for all input lines that want to send 
+            packets to it. When an input line intends to send a packet to a specific output line, it 
+            requests a ticket. Then, the input line waits for the ticket to be served. At that 
+            point, the input line connects to the output line, the crosspoint is turned on, and the 
+            input line sends the packet.
+    </details><br>
 
 - What is the head-of-line problem?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            When the entire queue is blocked by the progress of the head of the queue.
+    </details><br>
 
 - How is the head-of-line problem avoided using the knockout scheme?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            The knockout scheme avoids the head-of-line problem by dropping or "knocking out" 
+            packets that encounter blocked output ports, allowing subsequent packets to continue 
+            forwarding without waiting.
+    </details><br>
 
 - How is the head-of-line problem avoided using parallel iterative matching?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            The head-of-line problem is avoided using parallel iterative matching by concurrently 
+            processing multiple packets against different rules or prefixes in the classification 
+            database. This allows packets to progress independently, preventing congestion or delays 
+            caused by a single stalled packet.
+    </details><br>
 
 - Describe FIFO with tail drop.
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Packets enter a router on input links which are then looked up using the address lookup 
+            component – which gives the router an output link number. The switching system within 
+            the router then places the packet in the corresponding output port. This port is a FIFO 
+            queue. If the output link buffer is full, incoming packets to the tail of the queue are 
+            dropped.
+    </details><br>
 
 - What are the reasons for making scheduling decisions more complex than FIFO?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            1. Router support for congestion
+            2. Fair sharing of links among competing flows
+            3. Providing QoS guarantees to flows
+    </details><br>
 
 - Describe Bit-by-bit Round Robin scheduling.
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Bit-by-bit Round Robin scheduling works by allocating transmission slots to different 
+            input ports in a round-robin fashion, processing one bit at a time from each input port 
+            in sequential order. This ensures fair access to the output port among input ports and 
+            prevents a single input port from monopolizing the output. Each input port is given a 
+            turn to transmit one bit of its packet, and the process repeats cyclically. This 
+            scheduling method helps distribute traffic evenly across input ports and avoids the 
+            head-of-line blocking problem by allowing all input ports to progress simultaneously.
+    </details><br>
 
 - Bit-by-bit Round Robin provides fairness; what’s the problem with this method?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            It can suffer from inefficiency and reduced throughput because packets are processed one 
+            bit at a time, which may not fully utilize the available bandwidth of the output port.
+    </details><br>
 
 - Describe Deficit Round Robin (DRR).
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            DRR is a scheduling algorithm that allocates bandwidth fairly among multiple queues. 
+            Each queue is assigned a deficit counter, determining its priority for transmission. 
+            During each round, the scheduler deducts a fixed amount from the deficit counter of 
+            active queues and transmits packets until the deficit is exhausted or the queue becomes 
+            empty. Unused deficit is carried over to the next round, ensuring fair allocation of 
+            bandwidth while allowing bursts of traffic.
+    </details><br>
 
 - What is a token bucket shaping?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Token bucket shaping regulates data flow by associating a token bucket with each traffic 
+            flow. Tokens are added to the bucket at a fixed rate. When a packet arrives, it is 
+            transmitted if enough tokens are available; otherwise, it is delayed. This method 
+            smooths bursts of traffic and enforces a sustainable transmission rate, aiding in 
+            managing network congestion.
+    </details><br>
 
 - In traffic scheduling, what is the difference between policing and shaping?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            Policing imposes strict rate limits and may result in packet loss when limits are 
+            exceeded, while shaping buffers traffic to enforce rate limits more gently, avoiding 
+            immediate packet drops.
+    </details><br>
 
 - How is a leaky bucket used for traffic policing and shaping?
+    <details>
+        <summary>Click to reveal the answer</summary>
+
+            A leaky bucket is used for traffic policing and shaping by controlling the rate of 
+            outgoing traffic. In policing, incoming packets are compared against the bucket's 
+            capacity, and excess packets are either dropped or marked. In shaping, outgoing packets 
+            are transmitted at a controlled rate determined by the bucket's leak rate, smoothing 
+            traffic flow to conform to a specified rate limit.
+    </details><br>
