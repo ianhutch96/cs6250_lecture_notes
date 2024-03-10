@@ -1,6 +1,6 @@
 # Lesson 7: SDN (Part 1)
 
-This lesson we need examine Software Defined Networking (SDN).
+This lesson we examine Software Defined Networking (SDN).
 
 ## What led us to SDN?
 
